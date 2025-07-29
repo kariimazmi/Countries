@@ -30,9 +30,22 @@
 		A449074A2E38D256004D850A /* NetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A449075D2E38D5DA004D850A /* Exceptions for "Countries" folder in "Countries" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A449071D2E38D061004D850A /* Countries */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A44907202E38D061004D850A /* Countries */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A449075D2E38D5DA004D850A /* Exceptions for "Countries" folder in "Countries" target */,
+			);
 			path = Countries;
 			sourceTree = "<group>";
 		};
@@ -285,6 +298,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Countries/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Countries/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -318,6 +332,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Countries/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Countries/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
