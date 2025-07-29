@@ -46,17 +46,46 @@ class APIBuilderTests: XCTestCase {
         XCTAssertEqual(result.httpMethod, expectedMethod.rawValue)
     }
     
-    func testSUT_whenSetParametersCalled_setsQueryParametersCorrectly() {
+    func testSUT_whenSingleParameterCalled_setsQueryParametersCorrectly() {
         // given
         let params: [String: Any] = [
-            "field": "item",
-            "fields": ["item1", "item2"]
+            "field": "item"
         ]
-        let expectedURL = URL(string: "https://api.example.com/path?field=item&fields=item1,item2")
+        let expectedURL = URL(string: "https://api.example.com/path?field=item")
         
         // when
         let result = sut.setPath(using: "path")
             .setParameters(using: .query(params))
+            .build()
+        
+        // then
+        XCTAssertEqual(result.url, expectedURL)
+    }
+    
+    func testSUT_whenMultipleParametersCalled_setsQueryParametersCorrectly() {
+        // given
+        let params: [String: Any] = [
+            "fields": ["item1", "item2"]
+        ]
+        let expectedURL = URL(string: "https://api.example.com/path?fields=item1,item2")
+        
+        // when
+        let result = sut.setPath(using: "path")
+            .setParameters(using: .query(params))
+            .build()
+        
+        // then
+        XCTAssertEqual(result.url, expectedURL)
+    }
+    
+    func testSUT_whenCastingEncodableToDictionary_setsQueryParametersCorrectly() {
+        // given
+        let model: TestModel = .init(id: 1, name: "Name")
+        let expectedURL = URL(string: "https://api.example.com/path?id=1&name=Name")
+        
+        // when
+        let result = sut.setPath(using: "path")
+            .setParameters(using: .query(model.dictionary))
             .build()
         
         // then

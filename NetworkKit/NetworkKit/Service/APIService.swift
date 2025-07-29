@@ -6,11 +6,10 @@
 //
 
 public final class APIService: APIServiceContract {
-    public static let shared = APIService()
-    private let session: URLSession
-    
-    private init() {
-        self.session = .shared
+    private let session: URLSessionProtocol
+        
+    public init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
     }
     
     public func request<T: Decodable>(
@@ -18,7 +17,7 @@ public final class APIService: APIServiceContract {
         responseType: T.Type,
         decoder: JSONDecoder
     ) async throws -> T {
-        let (data, _) = try await session.data(for: urlRequest)
+        let (data, _) = try await session.data(for: urlRequest, delegate: nil)
         return try decoder.decode(responseType.self, from: data)
     }
 }

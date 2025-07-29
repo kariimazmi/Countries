@@ -10,7 +10,7 @@ import NetworkKit
 final class CountriesRemoteService: CountriesRemoteServiceContract {
     private let service: APIServiceContract
     
-    init(service: APIServiceContract = APIService.shared) {
+    init(service: APIServiceContract = APIService()) {
         self.service = service
     }
     
