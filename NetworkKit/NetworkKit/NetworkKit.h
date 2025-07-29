@@ -14,5 +14,3 @@ FOUNDATION_EXPORT double NetworkKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char NetworkKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <NetworkKit/PublicHeader.h>
-
-
