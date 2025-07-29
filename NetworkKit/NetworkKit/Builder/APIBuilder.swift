@@ -8,8 +8,8 @@
 public class APIBuilder: APIBuilderContract {
     private(set) var urlRequest: URLRequest
     
-    public init() {
-        guard let urlString = Bundle.main.infoDictionary?["hostname"] as? String,
+    public init(bundle: Bundle = .main) {
+        guard let urlString = bundle.infoDictionary?["hostname"] as? String,
               let url = URL(string: urlString)
         else {
             fatalError("Could not create URL")
