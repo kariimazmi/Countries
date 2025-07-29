@@ -1,5 +1,5 @@
 //
-//  HomeService.swift
+//  CountriesService.swift
 //  Countries
 //
 //  Created by Karim Azmi on 29/7/25.
@@ -7,7 +7,7 @@
 
 import NetworkKit
 
-final class HomeService: HomeServiceContract {
+final class CountriesService: CountriesServiceContract {
     private let service: APIServiceContract
     
     init(service: APIServiceContract = APIService.shared) {

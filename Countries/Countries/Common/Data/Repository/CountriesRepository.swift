@@ -1,16 +1,14 @@
 //
-//  HomeRepository.swift
+//  CountriesRepository.swift
 //  Countries
 //
 //  Created by Karim Azmi on 29/7/25.
 //
 
-import Combine
-
-final class HomeRepository: HomeRepositoryContract {
-    private let service: HomeServiceContract
+final class CountriesRepository: CountriesRepositoryContract {
+    private let service: CountriesServiceContract
     
-    init(service: HomeServiceContract = HomeService()) {
+    init(service: CountriesServiceContract = CountriesService()) {
         self.service = service
     }
     

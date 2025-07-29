@@ -5,9 +5,6 @@
       location = "group:Countries/Countries.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DesignKit/DesignKit.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:NetworkKit/NetworkKit.xcodeproj">
    </FileRef>
 </Workspace>

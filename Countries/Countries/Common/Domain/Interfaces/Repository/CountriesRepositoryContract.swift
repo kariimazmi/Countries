@@ -1,10 +1,10 @@
 //
-//  CountryServiceContract.swift
+//  CountriesRepositoryContract.swift
 //  Countries
 //
 //  Created by Karim Azmi on 29/7/25.
 //
 
-protocol HomeServiceContract {
+protocol CountriesRepositoryContract {
     func getAllCountries() async throws -> [Country]
 }

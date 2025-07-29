@@ -6,5 +6,5 @@
 //
 
 protocol GetCountriesUseCaseContract {
-    func execute(using countryCode: String?) async throws -> [CountryPresentable]
+    func execute() async throws -> [CountryPresentable]
 }
