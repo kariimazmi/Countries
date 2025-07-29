@@ -4,6 +4,7 @@
         <attribute name="capital" optional="YES" attributeType="String"/>
         <attribute name="code" attributeType="String"/>
         <attribute name="flag" attributeType="String"/>
+        <attribute name="isFavourite" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="currencies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Currency" inverseName="country" inverseEntity="Currency"/>
     </entity>

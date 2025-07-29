@@ -11,6 +11,7 @@ struct CountryResponse: Decodable {
     let capital: String?
     let flag: String
     let currencies: [CurrencyResponse]?
+    let isFavourite: Bool
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -33,6 +34,8 @@ struct CountryResponse: Decodable {
 
         let flagsContainer = try container.nestedContainer(keyedBy: FlagsKeys.self, forKey: .flags)
         flag = try flagsContainer.decode(String.self, forKey: .png)
+        
+        isFavourite = false
     }
 }
 

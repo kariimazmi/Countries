@@ -9,16 +9,19 @@ import Foundation
 
 final class HomeViewModel: HomeViewModelContract {
     private let getCurrentCountryUseCase: GetCurrentCountryUseCaseContract
+    private let updateCountryUseCase: UpdateCountryUseCaseContract
     
     private let getCountriesUseCase: GetCountriesUseCaseContract
     
     @Published var countries: [CountryPresentable] = []
     
     init(getCurrentCountryUseCase: GetCurrentCountryUseCaseContract = GetCurrentCountryUseCase(),
-         getCountriesUseCase: GetCountriesUseCaseContract = GetAllCountriesUseCase()
+         getCountriesUseCase: GetCountriesUseCaseContract = GetAllCountriesUseCase(),
+         updateCountryUseCase: UpdateCountryUseCaseContract = UpdateCountryUseCase()
     ) {
         self.getCurrentCountryUseCase = getCurrentCountryUseCase
         self.getCountriesUseCase = getCountriesUseCase
+        self.updateCountryUseCase = updateCountryUseCase
     }
 }
 
@@ -31,7 +34,7 @@ extension HomeViewModel {
                 
                 countries = allCountries
                     .filter {
-                        $0.code == countryCode
+                        $0.code == countryCode || $0.isFavourite
                     }
             } catch {
                 debugPrint("ERROR: \(error)")
@@ -40,9 +43,11 @@ extension HomeViewModel {
     }
     
     func onDelete(at offsets: IndexSet) {
-//        debugPrint("Before: \(countries.count)")
-//        countries.remove(atOffsets: offsets)
-//        debugPrint("After: \(countries.count)")
+        guard let country = offsets.compactMap({ countries[$0] }).first else { return }
+        Task { @MainActor in
+            try? await updateCountryUseCase.execute(country)
+            countries.remove(atOffsets: offsets)
+        }
     }
 }
 

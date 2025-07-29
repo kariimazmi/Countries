@@ -7,4 +7,5 @@
 
 protocol CountriesRepositoryContract {
     func getAllCountries() async throws -> [CountryResponse]
+    func updateCountry(_ country: CountryResponse) async throws
 }

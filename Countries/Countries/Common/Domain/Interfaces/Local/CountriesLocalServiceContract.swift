@@ -8,4 +8,5 @@
 protocol CountriesLocalServiceContract {
     func load() async throws -> [CountryResponse]
     func save(_ countries: [CountryResponse]) async throws
+    func update(_ country: CountryResponse) async throws
 }

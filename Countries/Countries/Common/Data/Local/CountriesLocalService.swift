@@ -21,25 +21,7 @@ final class CountriesLocalService: CountriesLocalServiceContract {
             let fetchRequest = Country.fetchRequest()
             let countries = try? context.fetch(fetchRequest)
             
-            return countries?
-                .compactMap { country in
-                    let currencies = (country.currencies?.allObjects as? [Currency])?
-                        .compactMap { currency in
-                            CurrencyResponse(
-                                code: currency.code,
-                                name: currency.name,
-                                symbol: currency.symbol
-                            )
-                        }
-                    
-                    return CountryResponse(
-                        code: country.code,
-                        name: country.name,
-                        capital: country.capital,
-                        flag: country.flag,
-                        currencies: currencies
-                    )
-                } ?? []
+            return countries?.compactMap { CountryResponse(entity: $0) } ?? []
         }
     }
     
@@ -52,6 +34,7 @@ final class CountriesLocalService: CountriesLocalServiceContract {
                 countryEntity.code = country.code
                 countryEntity.capital = country.capital
                 countryEntity.flag = country.flag
+                countryEntity.isFavourite = country.isFavourite
 
                 if let currencies = country.currencies {
                     for currency in currencies {
@@ -67,19 +50,32 @@ final class CountriesLocalService: CountriesLocalServiceContract {
             try context.save()
         }
     }
+    
+    func update(_ country: CountryResponse) async throws {
+        let context = container.newBackgroundContext()
+        
+        try await context.perform {
+            let fetchRequest = Country.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "code == %@", country.code)
+            
+            let entity = try? context.fetch(fetchRequest).first
+            entity?.code = country.code
+            entity?.name = country.name
+            entity?.capital = country.capital
+            entity?.flag = country.flag
+            entity?.isFavourite = country.isFavourite
+            
+            try context.save()
+        }
+    }
 }
 
 private extension CountryResponse {
-    init?(
-        code: String?,
-        name: String?,
-        capital: String?,
-        flag: String?,
-        currencies: [CurrencyResponse]?
-    ) {
-        guard let code,
-            let name,
-              let flag
+    init?(entity: Country) {
+        guard let code = entity.code,
+              let name = entity.name,
+              let capital = entity.capital,
+              let flag = entity.flag
         else {
             return nil
         }
@@ -88,19 +84,17 @@ private extension CountryResponse {
         self.name = name
         self.capital = capital
         self.flag = flag
-        self.currencies = currencies
+        self.currencies = (entity.currencies?.allObjects as? [Currency])?
+            .compactMap(CurrencyResponse.init)
+        self.isFavourite = entity.isFavourite
     }
 }
 
 private extension CurrencyResponse {
-    init?(
-        code: String?,
-        name: String?,
-        symbol: String?
-    ) {
-        guard let code,
-            let name,
-              let symbol
+    init?(entity: Currency) {
+        guard let code = entity.code,
+              let name = entity.name,
+              let symbol = entity.symbol
         else {
             return nil
         }

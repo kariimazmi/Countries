@@ -18,8 +18,8 @@ final class CountriesRepository: CountriesRepositoryContract {
     }
     
     func getAllCountries() async throws -> [CountryResponse] {
-        let cachedCountries = try? await local.load()
-        if let cachedCountries {
+        if let cachedCountries = try? await local.load(),
+            !cachedCountries.isEmpty {
             return cachedCountries
         }
         
@@ -27,5 +27,9 @@ final class CountriesRepository: CountriesRepositoryContract {
         try await local.save(remoteCountries)
         
         return remoteCountries
+    }
+    
+    func updateCountry(_ country: CountryResponse) async throws {
+        try await local.update(country)
     }
 }
