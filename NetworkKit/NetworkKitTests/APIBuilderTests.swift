@@ -8,7 +8,7 @@
 @testable import NetworkKit
 import XCTest
 
-class APIBuilderTests: XCTestCase {
+final class APIBuilderTests: XCTestCase {
     private var sut: APIBuilder!
     
     override func setUp() {

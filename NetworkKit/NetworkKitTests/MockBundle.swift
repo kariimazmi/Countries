@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MockBundle: Bundle {
+final class MockBundle: Bundle {
     override var infoDictionary: [String: Any]? {
         ["hostname": "https://api.example.com"]
     }

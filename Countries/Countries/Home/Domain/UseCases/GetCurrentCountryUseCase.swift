@@ -5,7 +5,6 @@
 //  Created by Karim Azmi on 29/7/25.
 //
 
-
 import CoreLocation
 
 final class GetCurrentCountryUseCase: NSObject, GetCurrentCountryUseCaseContract {

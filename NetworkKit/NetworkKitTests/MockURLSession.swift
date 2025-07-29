@@ -8,7 +8,7 @@
 @testable import NetworkKit
 import Foundation
 
-class MockURLSession: URLSessionProtocol {
+final class MockURLSession: URLSessionProtocol {
     var mockData: Data?
     
     func data(for request: URLRequest, delegate: URLSessionTaskDelegate?) async throws -> (Data, URLResponse) {
