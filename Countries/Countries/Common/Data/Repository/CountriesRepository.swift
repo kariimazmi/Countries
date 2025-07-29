@@ -6,13 +6,26 @@
 //
 
 final class CountriesRepository: CountriesRepositoryContract {
-    private let service: CountriesServiceContract
+    private let remote: CountriesRemoteServiceContract
+    private let local: CountriesLocalServiceContract
     
-    init(service: CountriesServiceContract = CountriesService()) {
-        self.service = service
+    init(
+        remote: CountriesRemoteServiceContract = CountriesRemoteService(),
+        local: CountriesLocalServiceContract = CountriesLocalService()
+    ) {
+        self.remote = remote
+        self.local = local
     }
     
-    func getAllCountries() async throws -> [Country] {
-        try await service.getAllCountries()
+    func getAllCountries() async throws -> [CountryResponse] {
+        let cachedCountries = try? await local.load()
+        if let cachedCountries {
+            return cachedCountries
+        }
+        
+        let remoteCountries = try await remote.getAllCountries()
+        try await local.save(remoteCountries)
+        
+        return remoteCountries
     }
 }

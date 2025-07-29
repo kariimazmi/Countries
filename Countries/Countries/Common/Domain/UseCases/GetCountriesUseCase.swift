@@ -17,6 +17,8 @@ final class GetAllCountriesUseCase: GetCountriesUseCaseContract {
     @MainActor
     func execute() async throws -> [CountryPresentable] {
         let countries = try await repository.getAllCountries()
-        return countries.map { CountryPresentable(country: $0) }
+        return countries
+            .sorted(by: { $0.name < $1.name })
+            .map { CountryPresentable(country: $0) }
     }
 }

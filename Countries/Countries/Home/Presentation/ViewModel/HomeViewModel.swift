@@ -26,9 +26,13 @@ extension HomeViewModel {
     func onAppear() {
         Task { @MainActor in
             do {
-//                let country = try await getCurrentCountryUseCase.execute()
-//                debugPrint(country)
-                countries = try await getCountriesUseCase.execute()
+                let countryCode = try await getCurrentCountryUseCase.execute()
+                let allCountries = try await getCountriesUseCase.execute()
+                
+                countries = allCountries
+                    .filter {
+                        $0.code == countryCode
+                    }
             } catch {
                 debugPrint("ERROR: \(error)")
             }

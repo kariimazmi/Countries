@@ -1,5 +1,5 @@
 //
-//  CountriesService.swift
+//  CountriesRemoteService.swift
 //  Countries
 //
 //  Created by Karim Azmi on 29/7/25.
@@ -7,14 +7,14 @@
 
 import NetworkKit
 
-final class CountriesService: CountriesServiceContract {
+final class CountriesRemoteService: CountriesRemoteServiceContract {
     private let service: APIServiceContract
     
     init(service: APIServiceContract = APIService.shared) {
         self.service = service
     }
     
-    func getAllCountries() async throws -> [Country] {
+    func getAllCountries() async throws -> [CountryResponse] {
         let parameters = AllCountriesRequest(
             fields: [
                 "alpha2Code",
@@ -31,6 +31,9 @@ final class CountriesService: CountriesServiceContract {
             .setParameters(using: .query(parameters.dictionary))
             .build()
         
-        return try await service.request(using: request, responseType: [Country].self)
+        return try await service.request(
+            using: request,
+            responseType: [CountryResponse].self
+        )
     }
 }

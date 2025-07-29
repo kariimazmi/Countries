@@ -1,17 +1,16 @@
 //
-//  Country.swift
+//  CountryResponse.swift
 //  Countries
 //
 //  Created by Karim Azmi on 29/7/25.
 //
 
-typealias Countries = [Country]
-struct Country: Decodable {
+struct CountryResponse: Decodable {
     let code: String
     let name: String
     let capital: String?
     let flag: String
-    let currencies: [Currency]?
+    let currencies: [CurrencyResponse]?
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -30,14 +29,14 @@ struct Country: Decodable {
         name = try container.decode(String.self, forKey: .name)
         code = try container.decode(String.self, forKey: .code)
         capital = try container.decodeIfPresent(String.self, forKey: .capital)
-        currencies = try container.decodeIfPresent([Currency].self, forKey: .currencies)
+        currencies = try container.decodeIfPresent([CurrencyResponse].self, forKey: .currencies)
 
         let flagsContainer = try container.nestedContainer(keyedBy: FlagsKeys.self, forKey: .flags)
         flag = try flagsContainer.decode(String.self, forKey: .png)
     }
 }
 
-struct Currency: Codable {
+struct CurrencyResponse: Codable {
     let code: String
     let name: String
     let symbol: String

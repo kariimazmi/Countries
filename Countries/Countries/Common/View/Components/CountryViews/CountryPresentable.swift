@@ -14,7 +14,7 @@ struct CountryPresentable {
     let flag: URL?
     let currencyDescription: String
 
-    init(country: Country) {
+    init(country: CountryResponse) {
         name = country.name
         code = country.code
         capital = country.capital ?? "N/A"
