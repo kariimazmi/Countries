@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import DesignKit
 
 struct HomeView<ViewModel: HomeViewModelContract>: View {
     // MARK: - PROPERTIES

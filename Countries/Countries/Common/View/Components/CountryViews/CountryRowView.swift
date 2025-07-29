@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-public struct CountryRowView: View {
+struct CountryRowView: View {
     private let country: CountryPresentable
     
-    public init(country: CountryPresentable) {
+    init(country: CountryPresentable) {
         self.country = country
     }
     
-    public var body: some View {
+    var body: some View {
         HStack(alignment: .center, spacing: 8.0) {
             iconView
             titleView
